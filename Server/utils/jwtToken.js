@@ -1,7 +1,7 @@
 const sendToken=(user,statuscode,res)=>{
 
     const token=user.getJwtToken()
-   console.log(user);
+   
 
     //cookies
     const options={

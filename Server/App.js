@@ -15,8 +15,12 @@ app.use(ErrorMiddleware);
 
 //routes
 const userRoutes = require("./routes/user");
+const productRoutes=require('./routes/product')
+app.use('/uploads',express.static('uploads'))
+
 
 app.use("/api/user", userRoutes);
+app.use('/api/product',productRoutes)
 
 //mongodb database
 connectDb();

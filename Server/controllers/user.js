@@ -5,6 +5,7 @@ const User = require("../models/User");
 const sendToken = require("../utils/jwtToken");
 const ErrorHandler = require("../utils/ErrorHandler");
 
+//signup
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -41,6 +42,8 @@ const register = async (req, res) => {
   }
 };
 
+
+//verification
 const verifyUser = async (req, res) => {
   try {
     const { otp, activationToken } = req.body;
@@ -63,6 +66,8 @@ const verifyUser = async (req, res) => {
   }
 };
 
+
+//login
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -83,9 +88,10 @@ const loginUser = async (req, res) => {
   }
 };
 
+
+//profile
 const profileUser=async(req,res)=>{
   try {
-    
     const user=await User.findById(req.user._id)
     res.json({user})
   } catch (error) {
