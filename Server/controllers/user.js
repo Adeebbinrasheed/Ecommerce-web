@@ -76,11 +76,11 @@ const loginUser = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(400).json({ message: "invalid credentials11" });
+      res.status(400).json({ message: "invalid credentials1" });
     }
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
-      res.status(400).json({ message: "invalid credentials44" });
+      res.status(400).json({ message: "invalid credentials" });
     }
     sendToken(user, 201, res);
   } catch (error) {

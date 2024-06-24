@@ -3,18 +3,18 @@ import {Link} from 'react-router-dom'
 
 const Header = () => {
   return (
-    <div className='flex items-center justify-between bg-slate-200 p-3 px-5 '>
-        <div>
-          <h1>logo</h1>
+    <div className=' flex items-center justify-between bg-slate-200 p-4 px-5 fixed w-full z-10 shadow-lg '>
+        <div className='font-bold text-xl text-blue-800'>
+          <h1>NexGen</h1>
         </div>
-        <div className='flex space-x-10'>
-          <Link>Home</Link>
-          <Link>Product</Link>
+        <div className='flex space-x-4'>
+          <Link to='/'>Home</Link>
+          <Link to='/product'>Product</Link>
           <Link>Cart</Link>
           <Link>About</Link>
         </div>
         <div>
-          <h1>Login</h1>
+          <Link to='/login'>Login</Link>
         </div>
     </div>
   )
