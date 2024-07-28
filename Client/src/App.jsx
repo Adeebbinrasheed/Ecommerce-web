@@ -8,32 +8,44 @@ import SignUp from "./pages/SignUp";
 import Verify from "./pages/Verify";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserData } from "./context/UserContext";
+import Loader from "./Components/Loader";
+import Account from "./pages/Account";
+import ProductDetails from "./pages/ProductDetails";
 
 const App = () => {
+  const { loading, isAuth ,user} = UserData();
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/verify" element={<Verify/>}/>
-      </Routes>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition:Bounce
-      />
-
+      {/* {loading ? (
+        <Loader />
+      ) : ( */}
+        <>
+          <Header isAuth={isAuth}/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/account" element={isAuth?<Account user={user} />:<Login/>} />
+            <Route path='/product' element={<Product/>}/>
+            <Route path="/product/:id" element={<ProductDetails/>}/>
+            <Route path="/login" element={isAuth ? <Home /> : <Login />} />
+            <Route path="/signup" element={isAuth ? <Home /> : <SignUp />} />
+            <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
+          </Routes>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            transition:Bounce
+          />
+        </>
+      {/* )} */}
     </>
   );
 };

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const User = require("../models/User");
 const sendToken = require("../utils/jwtToken");
-const ErrorHandler = require("../utils/ErrorHandler");
+
 
 //signup
 const register = async (req, res) => {
@@ -11,7 +11,7 @@ const register = async (req, res) => {
     const { name, email, password } = req.body;
     const userExist = await User.findOne({ email });
     if (userExist) {
-      return next(new ErrorHandler('user already exists',400))
+      return res.status(400).json({message:'user already exists'})
     }
 
     const user = {
@@ -37,6 +37,7 @@ const register = async (req, res) => {
     res
       .status(201)
       .json({ message: "otp send to your email", activationToken });
+      console.log(activationToken);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -47,12 +48,13 @@ const register = async (req, res) => {
 const verifyUser = async (req, res) => {
   try {
     const { otp, activationToken } = req.body;
+    console.log(activationToken);
     const verify = jwt.verify(activationToken, process.env.ACTIVATION_SECRET);
     if (!verify) {
-      res.status(500).json({ message: "otp expired" });
+      res.status(401).json({ message: "otp expired" });
     }
     if (verify.otp !== otp) {
-      res.status(500).json({ message: "wrong otp" });
+      res.status(401).json({ message: "wrong otp" });
     }
 
     await User.create({

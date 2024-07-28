@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserData } from '../context/UserContext';
 
 const SignUp = () => {
     const [name,setName]=useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [visible, setVisible] = useState(false);
+
+    const {registerUser}=UserData()
+    const navigate=useNavigate()
+    const submitHandler=async(e)=>{
+      e.preventDefault()
+      await registerUser(name,email,password,navigate)
+    }
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center px-2 pt-10">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -17,7 +25,7 @@ const SignUp = () => {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" >
+          <form className="space-y-6" onSubmit={submitHandler} >
           <div>
               <label
                 htmlFor="name"

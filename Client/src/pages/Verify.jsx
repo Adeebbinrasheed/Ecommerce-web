@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { UserData } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
+  const { verifyUser } = UserData();
+  const [ otp, setOtp ] = useState();
+  const navigate = useNavigate();
+  const verifyHandler = async (e) => {
+    e.preventDefault();
+    await verifyUser(Number(otp), navigate);
+  };
+
   return (
     <div className="pt-20 bg-gray-50 flex flex-col justify-center px-2">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -10,7 +20,7 @@ const Verify = () => {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={verifyHandler}>
             <div>
               <label
                 htmlFor="name"
@@ -23,6 +33,8 @@ const Verify = () => {
                   className="block w-full px-3 py-2 border-gray-300 border rounded shadow-sm  focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                   type="number"
                   id="name"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
                   placeholder="Otp"
                   required
                 />

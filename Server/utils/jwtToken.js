@@ -14,4 +14,5 @@ const sendToken = (user, statuscode, res) => {
     message:`welcome back,${user.name}`
   });
 };
+
 module.exports = sendToken;

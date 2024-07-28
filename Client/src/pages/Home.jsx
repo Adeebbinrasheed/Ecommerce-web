@@ -7,7 +7,7 @@ import Loader from "../Components/Loader";
 const Home = () => {
  
   return (
-    <div>
+    <div className="bg-gray-100 h-screen">
       <Banner />
       <div className="pt-10 pl-3 text-xl font-semibold text-center"><h1>Top Products</h1></div>
       <hr  className="mx-20 border-gray-900"/>

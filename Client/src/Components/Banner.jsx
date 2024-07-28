@@ -2,11 +2,12 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import phone1 from "../assets/phone1.jpg";
-import phone2 from "../assets/phone2.jpg";
-
+import men from "../assets/men1.jpg";
+import women from "../assets/women1.jpeg";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
+  const data = [{ image: men }, { image: women }];
   const settings = {
     dots: true,
     infinite: true,
@@ -46,23 +47,18 @@ const Banner = () => {
   return (
     <div className=" pt-16 overflow-hidden">
       <Slider {...settings}>
-        <div className="h-[300px] flex items-center">
-          <h1 className="absolute text-white font-semibold top-10">
-            Best Smartphone
-          </h1>
-          <img
-            src={phone1}
-            alt="Phone 1"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="h-[300px] flex items-center justify-center">
-          <img
-            src={phone2}
-            alt="Phone 2"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {data.map((e) => (
+          <div className="relative h-screen  flex items-center">
+            <div className="flex items-center justify-center absolute bottom-10 left-1/2 ">
+              <Link className="text-xl font-thin text-white">shop now </Link>
+            </div>
+            <img
+              src={e.image}
+              alt="Phone 1"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
       </Slider>
     </div>
   );

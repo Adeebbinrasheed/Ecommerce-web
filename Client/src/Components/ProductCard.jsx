@@ -1,7 +1,9 @@
 import React from "react";
 import { Server } from "../server";
+import {useNavigate } from "react-router-dom";
 
 const ProductCard = ({product}) => {
+  const navigate=useNavigate();
   
   return (
     <div className="flex p-4 mt-8 bg-gray-10">
@@ -16,7 +18,7 @@ const ProductCard = ({product}) => {
           <h1 className="font-semibold text-lg">Rs.{product.price}</h1>
         </div>
         <div>
-          <button className="bg-black text-white p-1 rounded-lg text-sm">view Product</button>
+          <button className="bg-black text-white p-1 rounded-lg text-sm" onClick={()=>navigate(`/product/${product._id}`)}>view Product</button>
         </div>
       </div>
     </div>
