@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { UserData } from "../context/UserContext";
 import { toast } from "react-toastify";
+import { CartData } from "../context/cartContext";
 
 const Header = ({ isAuth }) => {
   const [isopen, setIsopen] = useState(false);
-  const {setUser,setIsAuth}=UserData()
+  const { setUser, setIsAuth } = UserData();
+  const navigate = useNavigate();
+  const { totalItem } = CartData();
 
   const openMenu = () => {
     setIsopen(!isopen);
@@ -18,12 +21,12 @@ const Header = ({ isAuth }) => {
   const closeMenu = () => {
     setIsopen(false);
   };
-  const logoutHandler=()=>{
-    localStorage.clear()
-    setUser([])
-    setIsAuth(false)
-    toast.success("logged out successfully")
-  }
+  const logoutHandler = () => {
+    localStorage.clear();
+    setUser([]);
+    setIsAuth(false);
+    toast.success("logged out successfully");
+  };
   return (
     <div className="relative">
       <div className="flex items-center justify-between bg-gray-50 p-5 px-5 fixed w-full z-20 shadow-lg ">
@@ -49,9 +52,15 @@ const Header = ({ isAuth }) => {
           <Link to="/login">
             <IoIosSearch />
           </Link>
-          <Link to="/login">
-            <IoCartOutline />
-          </Link>
+          {isAuth && (
+            <button onClick={() => navigate("/cart")} className="flex relative">
+              <IoCartOutline />
+
+              <h1 className="absolute left-4 bottom-1 text-sm text-red-800 font-bold">
+                {totalItem}
+              </h1>
+            </button>
+          )}
         </div>
       </div>
       {isopen && (
@@ -77,9 +86,9 @@ const Header = ({ isAuth }) => {
           >
             Products
           </Link>
+
           {isAuth ? (
             <Link
-      
               onClick={logoutHandler}
               className="no-underline text-black hover:text-gray-300"
             >

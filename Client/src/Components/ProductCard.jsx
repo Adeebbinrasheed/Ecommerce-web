@@ -18,7 +18,7 @@ const ProductCard = ({product}) => {
           <h1 className="font-semibold text-lg">Rs.{product.price}</h1>
         </div>
         <div>
-          <button className="bg-black text-white p-1 rounded-lg text-sm" onClick={()=>navigate(`/product/${product._id}`)}>view Product</button>
+          <button className="bg-black text-white p-1 rounded-lg text-sm" onClick={()=>navigate(`product/${product._id}`)}>view Product</button>
         </div>
       </div>
     </div>
